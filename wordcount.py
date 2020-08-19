@@ -25,29 +25,44 @@ should return a dictionary with words as keys, and their counts as values.
 
 # Your name, plus anyone who helped you with this assignment
 # Give credit where credit is due.
-__author__ = "???"
-
 import sys
+__author__ = "sondos with help from Gabby and jT"
+# __references__ =
+# 1:https: // www.codespeedy.com/sort-a-dictionary-by-key-in-python/
+# 2:https://developers.google.com/edu/python/dict-files?hl=ko
+# 3:https://stackoverflow.com/questions/14067267/lower-case-from-a-text-file
 
 
 def create_word_dict(filename):
-    """Returns a word/count dict for the given file."""
-    # Your code here
-    return
+    # """Returns a word/count dict for the given file."""
+    f = open(filename, 'r')
+    counts = dict()
+    for line in f:
+        words = line.split()
+        for word in words:
+            counts[word.lower()] = counts.get(word.lower(), 0) + 1
+    f.close()
+    return counts
 
 
 def print_words(filename):
     """Prints one per line '<word> : <count>', sorted
     by word for the given file.
     """
-    # Your code here
-    return
+    counts = create_word_dict(filename)
+    for key in sorted(counts.keys()):
+        print(key, ":", counts[key])
+    return counts
+    # return [counts[key]:for key in sorted(counts.keys())]
 
 
 def print_top(filename):
     """Prints the top count listing for the given file."""
-    # Your code here
-    return
+    counts = create_word_dict(filename)
+    sorted_counts = sorted(counts.items(), key=lambda kv: kv[1], reverse=True)
+    for i in range(20):
+        print(sorted_counts[i][0], ":", sorted_counts[i][1])
+    return sorted_counts
 
 
 # This basic command line argument parsing code is provided and calls
